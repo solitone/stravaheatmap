@@ -42,7 +42,7 @@ to:
 tms[3,15]:https://heatmap-external-{switch:a,b,c}.strava.com/tiles-auth/run/hot/{zoom}/{x}/{y}.png
 ```
 3. Close JOSM.
-4. From the command line, run `$ python3 -m stravaheatmap.joms`.
+4. From the command line, run `$ python3 -m stravaheatmap.josm`.
 5. Provide the email/password of your Strava account.
 6. Open JOSM. The imagery URL now should be something like:
 ```
@@ -74,10 +74,10 @@ the file will be saved in
 for an easy import into Cartograph Maps from mobile devices).
 4. Import the map definition file into Cartograph Maps. The following maps
 will be available in the *Manage Maps* menu:
-- Strava Heatmap (all)
-- Strava Heatmap (ride)
-- Strava Heatmap (run)
-- Strava Heatmap (winter)
+   - Strava Heatmap (all)
+   - Strava Heatmap (ride)
+   - Strava Heatmap (run)
+   - Strava Heatmap (winter)
 
 When Cartograph Maps can no longer display the hi-res heatmap, it means
 Strava authentication cookies have expired. From the *Manage Maps* menu, remove
