@@ -4,16 +4,23 @@ import sys
 from colorama import Fore, Style
 from getpass import getpass
 
-from josmStravaImgUpdater import *
-from stravacookies import StravaCFetchError, StravaCFetchCookieError, StravaCFetchOsError, StravaCFetchJosmprefsError
+from stravacookies import ( StravaCFetchCookieError,
+                            StravaCFetchOsError,
+                            StravaCFetchJosmprefsError
+                          )
+from imgupdater import    ( ImgUpdater,
+                            MacOsImgUpdater,
+                            LinuxImgUpdater,
+                            WindowsImgUpdater
+                          )
 
 try:
     if (platform.system() == "Darwin"):
-        stravaImgUpdater = MacOsJosmStravaImgUpdater()
+        stravaImgUpdater = MacOsImgUpdater()
     elif (platform.system() == "Linux"):
-        stravaImgUpdater = LinuxJosmStravaImgUpdater()
+        stravaImgUpdater = LinuxImgUpdater()
     elif (platform.system() == "Windows"):
-        stravaImgUpdater = WindowsJosmStravaImgUpdater()
+        stravaImgUpdater = WindowsImgUpdater()
     else:
         raise StravaCFetchOsError(platform.system())
 

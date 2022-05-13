@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 
 from stravacookies.fetcher import StravaCookieFetcher
 
-class JosmStravaImgUpdater(object):
+class ImgUpdater(object):
     def __init__(self):
         self.josmPreferences = "./fakepath.xml" # has to be set in OS-specific constructor
         self.cookieFetcher=StravaCookieFetcher() # may be overridden in OS-specific constructor
@@ -34,13 +34,13 @@ class JosmStravaImgUpdater(object):
         doc.write(self.josmPreferences, encoding="UTF-8")
 
 
-class MacOsJosmStravaImgUpdater(JosmStravaImgUpdater):
+class MacOsImgUpdater(ImgUpdater):
     def __init__( self ):
         super().__init__()
         self.josmPreferences = os.path.expanduser('~/Library/Preferences/JOSM/preferences.xml')
 
 
-class LinuxJosmStravaImgUpdater(JosmStravaImgUpdater):
+class LinuxImgUpdater(ImgUpdater):
     def __init__( self ):
         super().__init__()
         # On Linux, three possible locations for JOSM preference file
@@ -63,7 +63,7 @@ class LinuxJosmStravaImgUpdater(JosmStravaImgUpdater):
         self.josmPreferences = pref
 
 
-class WindowsJosmStravaImgUpdater(JosmStravaImgUpdater):
+class WindowsImgUpdater(ImgUpdater):
     def __init__( self ):
         super().__init__()
         self.josmPreferences = os.path.join(
