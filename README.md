@@ -13,8 +13,6 @@ and https://wiki.openstreetmap.org/wiki/Permissions/Strava
 
 
 ## Requirements
-This tool runs on macOS, linux, and Windows operating systems.
-
 It relies on Python 3, which comes pre-installed on
 most *x systems.  For macOS, a convenient way to install Python 3 is
 homebrew; see, e.g.,
@@ -24,9 +22,12 @@ https://www.python.org/downloads/windows/.
 A Strava account is required. Facebook/Google/Apple login to Strava is not
 supported.You can setup a Strava account heading to https://www.strava.com/register.
 
-## Usage
+## JOSM
 
-### JOSM
+### Additional requirements
+The utility for JOSM runs on macOS, linux, and Windows operating systems.
+
+### Usage
 To install the Strava Heatmap in JOSM, perform the following steps:
 
 1. In JOSM preferences, activate the Strava imagery entries that you need.
@@ -50,9 +51,10 @@ tms[3,15]:https://heatmap-external-{switch:a,b,c}.strava.com/tiles-auth/run/hot/
 When JOSM can no longer display the hi-res heatmap, it means authentication
 cookies have expired. You need to repeat the procedure from step 3.
 
-### Cartograph Maps
-You can add online maps to [Cartograph Maps](https://www.cartograph.eu)
-through an
+## Cartograph Maps
+
+### Usage
+You can add online maps to Cartograph Maps through an
 [online map definition file](https://www.cartograph.eu/help_onlinemapimport).
 An online map definition file is a JSON file that can be imported directly
 in Cartograph Maps.
