@@ -13,14 +13,14 @@ and https://wiki.openstreetmap.org/wiki/Permissions/Strava
 
 
 ## Requirements
-It relies on Python 3, which comes pre-installed on
+`stravaheatmap` relies on Python 3, which comes pre-installed on
 most *x systems.  For macOS, a convenient way to install Python 3 is
 homebrew; see, e.g.,
 https://docs.python-guide.org/starting/install3/osx/. For Windows, see
 https://www.python.org/downloads/windows/.
 
 A Strava account is required. Facebook/Google/Apple login to Strava is not
-supported.You can setup a Strava account heading to https://www.strava.com/register.
+supported. You can setup a Strava account heading to https://www.strava.com/register.
 
 ## JOSM
 
@@ -42,7 +42,7 @@ to:
 tms[3,15]:https://heatmap-external-{switch:a,b,c}.strava.com/tiles-auth/run/hot/{zoom}/{x}/{y}.png
 ```
 3. Close JOSM.
-4. From the command line, run `$ python3 -m stravaheatmap.josm`.
+4. From the command line, run `python3 -m stravaheatmap.josm`.
 5. Provide the email/password of your Strava account.
 6. Open JOSM. The imagery URL now should be something like:
 ```
@@ -60,12 +60,12 @@ An online map definition file is a JSON file that can be imported directly
 in Cartograph Maps.
 
 The `stravaheatmap.cartograph` utility generates an online map
-definition (omapdef) file containing containing the
+definition (omapdef) file containing the
 [TMS](https://en.wikipedia.org/wiki/Tile_Map_Service) URLs
 of the Strava Heatmap of the four available activities
 (`all`, `ride`, `run`, and `winter`).
 
-1. From the command line, run `$ python3 -m stravaheatmap.cartograph`
+1. From the command line, run `python3 -m stravaheatmap.cartograph`
 2. Provide the email/password of your Strava account
 3. Choose whether you want to save the omapdef file saved in the current
 directory or in iCloud (only relevant for macOS users--if you choose iCloud
