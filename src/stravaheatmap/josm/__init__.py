@@ -8,7 +8,7 @@ from stravacookies import ( StravaCFetchCookieError,
                             StravaCFetchOsError,
                             StravaCFetchJosmprefsError
                           )
-from imgupdater import    ( ImgUpdater,
+from .imgupdater import    ( ImgUpdater,
                             MacOsImgUpdater,
                             LinuxImgUpdater,
                             WindowsImgUpdater
