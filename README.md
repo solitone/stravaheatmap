@@ -20,10 +20,16 @@ https://docs.python-guide.org/starting/install3/osx/. For Windows, see
 https://www.python.org/downloads/windows/.
 
 A Strava account is required. Facebook/Google/Apple login to Strava is not
-supported. You can setup a Strava account heading to https://www.strava.com/register.
+supported. You can setup a Strava account heading to https://www.strava.com/register. You don't need to use the same account
+you use for uploading your activities.
+
+## Installation
+From the command line, run:
+```
+python3 -m pip install stravaheatmap
+```
 
 ## JOSM
-
 ### Additional requirements
 The utility for JOSM runs on macOS, linux, and Windows operating systems.
 
