@@ -12,8 +12,32 @@ see https://wiki.openstreetmap.org/wiki/Strava
 and https://wiki.openstreetmap.org/wiki/Permissions/Strava
 
 
+## Generation using cached authorization (5.0)
+
+Applications that already have signed heatmap parameters can generate a
+Cartograph definition **without logging in, importing a browser library or making
+any network requests**:
+
+```python
+from stravaheatmap.cartograph.onlinemap import OnlineMap
+
+# Obtain these from stravacookies or your private authorization cache.
+parameters = {"Key-Pair-Id": key_pair_id, "Policy": policy, "Signature": signature}
+definition = OnlineMap.getDefinitionFromCookies("hot", parameters, maxZoom=15)
+```
+
+The caller manages cookie expiration and refresh; this method only builds the
+map definition. Do not publish generated files: they contain signed authorization.
+Colors, activity names, URL construction and Cartograph format are owned by this
+package, not by the calling web app.
+
+`OnlineMap.getDefinition(color, email, password)` and the existing CLI remain
+available. That method performs login through the installed `stravacookies`, then
+delegates to the same generator. Its historical `maxZoom=22` output is preserved;
+callers of the new method can explicitly select `maxZoom=15`.
+
 ## Requirements
-`stravaheatmap` relies on Python 3, which comes pre-installed on
+`stravaheatmap` requires Python 3.9 or later, which comes pre-installed on
 most *x systems.  For macOS, a convenient way to install Python 3 is
 homebrew; see, e.g.,
 https://docs.python-guide.org/starting/install3/osx/. For Windows, see
@@ -26,8 +50,14 @@ you use for uploading your activities.
 ## Installation
 From the command line, run:
 ```
-python3 -m pip install stravaheatmap
+python3 -m pip install "stravaheatmap @ git+https://github.com/solitone/stravaheatmap.git@v5.0.0"
 ```
+
+This GitHub release pins `stravacookies` 2.0.0 to its reviewed source commit.
+For fresh browser login, also run `python3 -m playwright install chromium`.
+Strava may still reject a fresh automated login with HTTP 403; existing authenticated
+browser sessions can instead be reused through `stravacookies` and the cached API.
+This release is not published to PyPI.
 
 ## JOSM
 ### Additional requirements
