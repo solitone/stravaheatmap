@@ -1,5 +1,5 @@
 from string import Template
-from stravacookies import StravaCookieFetcher
+from urllib.parse import parse_qsl, urlencode
 
 class OnlineMap(object):
 # Constants:
@@ -26,13 +26,32 @@ class OnlineMap(object):
 ## replacing placeholders 'activity', 'color', and 'cookieString' with actual values
     URL_TEMPLATE = Template("https://heatmap-external-a.strava.com/tiles-auth/$activity/$color/{z}/{x}/{y}.png?$cookieString")
 
+    @staticmethod
     def getDefinition(heatmapColor, stravaEmail, stravaPassword):
-# Returns a python dictionary representing an online map definition;
-# dumping that dictionary to a json file results in an
-# online map definition file that can be imported into Cartograph Maps
-        stravaCookieFetcher = StravaCookieFetcher()
-        stravaCookieFetcher.fetchCookies(stravaEmail, stravaPassword)
-        cookieString = stravaCookieFetcher.getCookieString()
+        """Legacy login-and-generate API, retained for existing CLI callers."""
+        from stravacookies import StravaCookieFetcher
+
+        fetcher = StravaCookieFetcher()
+        fetcher.fetchCookies(stravaEmail, stravaPassword)
+        cookies = dict(parse_qsl(fetcher.getCookieString(), keep_blank_values=True))
+        return OnlineMap.getDefinitionFromCookies(heatmapColor, cookies)
+
+    @staticmethod
+    def getDefinitionFromCookies(heatmapColor, cookies, *, maxZoom=22):
+        """Generate a Cartograph definition without login, browser or network.
+
+        cookies maps Key-Pair-Id, Policy and Signature to nonempty strings.
+        The caller owns authorization validity/renewal. The legacy maximum zoom
+        remains 22; pass maxZoom=15 to limit to the verified native TMS level.
+        """
+        if heatmapColor not in OnlineMap.COLORS:
+            raise ValueError("Unsupported heatmap color")
+        names = ("Key-Pair-Id", "Policy", "Signature")
+        if not all(isinstance(cookies.get(k), str) and cookies[k] for k in names):
+            raise ValueError("Three nonempty signed heatmap parameters are required")
+        if type(maxZoom) is not int or not 2 <= maxZoom <= 22:
+            raise ValueError("maxZoom must be an integer between 2 and 22")
+        cookieString = urlencode({k: cookies[k] for k in names})
 
         maps = []
 
@@ -49,7 +68,7 @@ class OnlineMap(object):
                 "defaultLongitude": 7.6761,
                 "defaultZoom": 11,
                 "minZoom": 2,
-                "maxZoom": 22,
+                "maxZoom": maxZoom,
                 "projection": "EPSG_4326", # Possible values: "EPSG_4326" (default) or "EPSG_900913"
                 "headers": [
                     {
